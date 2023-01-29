@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include("../header"); %>
+<body>
+  <%- include("../menu"); %>
+  <div class="clearfix">
+    <button type="button" class="btn purple-gradient" onclick="location.href='/api/teacher/new'"><i class="fas fa-plus mr-1"></i>Create</button>
+  </div>
+  <div class="row row-cols-1 row-cols-md-4">
+    <% result.forEach(teacher=> { %>
+      <div class="col mb-4">
+      <!-- Card -->
+      <div class="card">
+  
+        <!--Card image-->
+        <div class="view overlay">
+          <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Others/images/16.jpg"
+            alt="Card image cap">
+          <a href="#!">
+            <div class="mask rgba-white-slight"></div>
+          </a>
+        </div>
+  
+        <!--Card content-->
+        <div class="card-body">
+  
+          <!--Title-->
+          <h4 class="card-title"><%= teacher.name %></h4>
+          <!--Text-->
+          <p class="card-text"><%= teacher.birth %></p>
+          
+          <p class="card-text"><%= teacher.tel %></p>
+          <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
+          <button type="button" class="btn btn-purple btn-md" onclick= "location.href='/api/teacher/<%=teacher._id%>'">Detail</button>
+  
+        </div>
+  
+      </div>
+      <!-- Card -->
+    </div>
+    <% }) %>
+  </div>
+  <%- include("../footer"); %>
+</body>
+</html>

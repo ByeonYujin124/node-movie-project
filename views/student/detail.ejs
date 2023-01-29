@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include("../header"); %>
+<body>
+  <%- include("../menu"); %>
+
+    <div class="all" style="background-image: url('https://mdbootstrap.com/img/Photos/Others/architecture.jpg'); background-repeat: no-repeat; background-size: cover; background-position: center center;">
+        <div class="mask rgba-gradient align-items-center" style="padding: 10vh 25%;">
+            <div class="signup" style= "padding: 5% 10%; background-color: rgba(0,0,0,0.5); border-radius:25px">
+    <!-- Material form register -->
+  
+      <!--Card content-->
+      <div class="card-body px-lg-5 pt-0">
+  
+          <!-- Form -->
+          <form id="signupForm" class="text-center" style="color: #757575;" action="#!">
+  
+              <!-- Material input -->
+   <!-- Material input -->
+   <div class="md-form">
+    <input type="text" id="name" class="form-control" style="color: white" value="<%= result.name %>" readonly>
+    <label for="name">Name</label>
+</div>
+
+<div class="md-form">
+    <input type="text" id="birth" class="form-control" style="color: white"value="<%= result.birth %>" readonly>
+    <label for="birth">Birth</label>
+</div>
+
+<div class="md-form">
+    <input type="text" id="tel" class="form-control" style="color: white"value="<%= result.tel %>" readonly>
+    <label for="tel">Tel</label>
+</div>
+
+<div class="md-form">
+  <input type="number" id="age" class="form-control" style="color: white"value="<%= result.age %>" readonly>
+  <label for="age">Age</label>
+</div>
+
+<div class="md-form">
+<input type="text" id="cls" class="form-control" style="color: white"value="<%= result.cls %>" readonly>
+<label for="cls">class</label>
+</div>
+
+  <button type="button" class="btn btn-primary" onclick="location.href='/api/student'">list</button>
+  <button type="button" class="btn btn-primary" onclick="location.href='/api/student/<%= result._id %>/edit'">edit</button>
+  <button id="deleteBtn" type="button" class="btn btn-primary" >Remove</button>
+  
+</form>
+          <!-- Form -->
+      </div>
+      </div>
+      </div>
+  </div>
+  <!-- Material form register -->
+  
+    <%- include("../footer"); %>
+    <style>
+      .rgba-gradient {
+      background: -moz-linear-gradient(45deg, rgba(155, 11, 44, 0.6), rgba(12, 14, 173, 0.69) 100%);
+      background: -webkit-linear-gradient(45deg, rgba(155, 11, 44, 0.6), rgba(12, 14, 173, 0.69) 100%);
+      background: linear-gradient(to 45deg, rgba(155, 11, 44, 0.6), rgba(12, 14, 173, 0.69) 100%);
+    }
+  </style>
+  
+<script>
+  $(function () {
+      $("#deleteBtn").on("click", () => {
+          const result = confirm("삭제하시겠습니까?");
+
+          if(result) {
+            $.ajax({
+              url: "/api/student/<%= result.id %>", 
+              type: "DELETE"
+            })
+            .done(() => {                             //  성공
+              location.href = "/api/student";
+            })
+            .fail((request, status, error) => {       //  실패
+              alert(request.responseText);
+            });
+          }
+      });
+  });
+</script>
+
+</body>
+</html>

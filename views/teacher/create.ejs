@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include("../header"); %>
+<body>
+  <%- include("../menu"); %>
+
+  <form id = "createForm">
+  <!-- Material input -->
+   <div class="md-form">
+        <input type="text" id="name" class="form-control" required>
+        <label for="name">Name</label>
+    </div>
+
+   <div class="md-form">
+        <input type="text" id="birth" class="form-control" required>
+        <label for="birth">Birth</label>
+    </div>
+
+    <div class="md-form">
+        <input type="tel" id="tel" class="form-control" required>
+        <label for="tel">Tel</label>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+<%- include("../footer"); %>
+
+<script>
+    $(function () {
+        $("#createForm").submit((event) => {
+            event.preventDefault();
+
+            // 등록
+            const name = $("#name").val();
+            const birth = $("#birth").val();
+            const tel = $("#tel").val();
+
+            $.ajax({
+                url: "/api/teacher", 
+                type: "POST",
+                data: { name, birth, tel },
+            })
+            .done(() => {                             //  성공
+                location.href = "/api/teacher";
+            })
+            .fail((request, status, error) => {       //  실패
+                alert(request.responseText);
+            });
+        });
+    });
+</script>
+</body>
+</html>

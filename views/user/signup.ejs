@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include("../header"); %>
+<body>
+  <%- include("../menu_main"); %>
+  <div class="all" style="background-image: url('https://mdbootstrap.com/img/Photos/Others/architecture.jpg'); background-repeat: no-repeat; background-size: cover; background-position: center center;">
+      <div class="mask rgba-gradient align-items-center" style="padding: 15vh 25%;">
+          <div class="signup" style= "padding: 5% 10%; background-color: rgba(0,0,0,0.5); border-radius:25px">
+  <!-- Material form register -->
+
+    <h5 class="text-center p-4" style="color: white;">
+        <strong>Sign up</strong>
+    </h5>
+
+    <!--Card content-->
+    <div class="card-body px-lg-5 pt-0">
+
+        <!-- Form -->
+        <form id="signupForm" class="text-center" style="color: #757575;" action="#!">
+
+            <div class="form-row">
+                <div class="col">
+                    <!-- name -->
+                    <div class="md-form">
+                        <input type="text" id="name" class="form-control" required>
+                        <label for="name">Input name</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- E-mail -->
+            <div class="md-form mt-0">
+                <input type="email" id="email" class="form-control" required>
+                <label for="email">E-mail</label>
+            </div>
+
+            <!-- Password -->
+            <div class="md-form">
+                <input type="password" id="password" class="form-control" aria-describedby="materialRegisterFormPasswordHelpBlock" required>
+                <label for="password">Password</label>
+                <!-- <small id="materialRegisterFormPasswordHelpBlock" class="form-text text-muted mb-4">
+                    At least 8 characters and 1 digit
+                </small> -->
+            </div>
+
+            <!-- Phone number -->
+            <div class="md-form">
+                <input type="password" id="materialRegisterFormPhone" class="form-control" aria-describedby="materialRegisterFormPhoneHelpBlock">
+                <label for="materialRegisterFormPhone">Phone number</label>
+                <!-- <small id="materialRegisterFormPhoneHelpBlock" class="form-text text-muted mb-4">
+                    Optional - for two step authentication
+                </small> -->
+            </div>
+
+            <!-- Sign up button -->
+            <button class="btn btn-outline-white btn-rounded btn-block my-4 waves-effect z-depth-0" type="submit">Sign up</button>
+
+            <!-- Social register -->
+            <!-- <p>or sign up with:</p>
+
+            <a type="button" class="btn-floating btn-fb btn-sm">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+            <a type="button" class="btn-floating btn-tw btn-sm">
+                <i class="fab fa-twitter"></i>
+            </a>
+            <a type="button" class="btn-floating btn-li btn-sm">
+                <i class="fab fa-linkedin-in"></i>
+            </a>
+            <a type="button" class="btn-floating btn-git btn-sm">
+                <i class="fab fa-github"></i>
+            </a>
+
+            <hr> -->
+        </form>
+        <!-- Form -->
+    </div>
+    </div>
+    </div>
+    </div>
+</div>
+<!-- Material form register -->
+
+  <%- include("../footer"); %>
+  <style>
+    .rgba-gradient {
+    background: -moz-linear-gradient(45deg, rgba(155, 11, 44, 0.6), rgba(12, 14, 173, 0.69) 100%);
+    background: -webkit-linear-gradient(45deg, rgba(155, 11, 44, 0.6), rgba(12, 14, 173, 0.69) 100%);
+    background: linear-gradient(to 45deg, rgba(155, 11, 44, 0.6), rgba(12, 14, 173, 0.69) 100%);
+  }
+</style>
+<script>
+    $(function () {
+        $("#signupForm").submit((event) => {
+            event.preventDefault();
+
+            // 등록
+            const name = $("#name").val();
+            const email = $("#email").val();
+            const password= $("#password").val();
+
+            $.ajax({
+                url: "/api/user/signup", 
+                type: "POST",
+                data: { name, email, password },
+            })
+            .done(() => {                             //  성공
+                location.href = "api/user/login";
+            })
+            .fail((request, status, error) => {       //  실패
+                alert(request.responseText);
+            });
+        });
+    });
+</script>
+</body>
+</html>

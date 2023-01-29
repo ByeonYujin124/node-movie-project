@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include("../header"); %>
+<body>
+  <%- include("../menu"); %>
+
+  <!-- Material input -->
+   <div class="md-form">
+        <input type="text" id="singer" class="form-control" value="<%= result.singer %>" readonly>
+        <label for="form1">Singer</label>
+    </div>
+
+    
+   <div class="md-form">
+        <input type="text" id="singer" class="form-control" value="<%= result.title %>" readonly>
+        <label for="form1">Title</label>
+    </div>
+
+    <button type="button" class="btn btn-primary" onclick="location.href='/api/music'">list</button>
+    <button type="button" class="btn btn-primary" onclick="location.href='/api/music/<%= result._id %>/edit'">edit</button>
+    <button id="deleteBtn" type="button" class="btn btn-primary" >Remove</button>
+    
+<%- include("../footer"); %>
+
+<script>
+  $(function () {
+      $("#deleteBtn").on("click", () => {
+          const result = confirm("삭제하시겠습니까?");
+
+          if(result) {
+            $.ajax({
+              url: "/api/music/<%= result.id %>", 
+              type: "DELETE"
+            })
+            .done(() => {                             //  성공
+              location.href = "/api/music";
+            })
+            .fail((request, status, error) => {       //  실패
+              alert(request.responseText);
+            });
+          }
+      });
+  });
+</script>
+</body>
+</html>

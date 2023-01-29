@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include("../header"); %>
+<body>
+  <%- include("../menu"); %>
+
+  <!-- Material input -->
+   <div class="md-form">
+        <input type="text" id="name" class="form-control" value="<%= result.name %>" readonly>
+        <label for="form1">Name</label>
+    </div>
+
+    
+   <div class="md-form">
+        <input type="text" id="birth" class="form-control" value="<%= result.birth %>" readonly>
+        <label for="form1">Birth</label>
+    </div>
+
+    <div class="md-form">
+      <input type="tel" id="tel" class="form-control" value="<%= result.tel %>" readonly>
+      <label for="form1">Tel</label>
+  </div>
+
+    <button type="button" class="btn btn-primary" onclick="location.href='/api/teacher'">list</button>
+    <button type="button" class="btn btn-primary" onclick="location.href='/api/teacher/<%= result._id %>/edit'">edit</button>
+    <button id="deleteBtn" type="button" class="btn btn-primary" >Remove</button>
+    
+<%- include("../footer"); %>
+
+<script>
+  $(function () {
+      $("#deleteBtn").on("click", () => {
+          const result = confirm("삭제하시겠습니까?");
+
+          if(result) {
+            $.ajax({
+              url: "/api/teacher/<%= result.id %>", 
+              type: "DELETE"
+            })
+            .done(() => {                             //  성공
+              location.href = "/api/teacher";
+            })
+            .fail((request, status, error) => {       //  실패
+              alert(request.responseText);
+            });
+          }
+      });
+  });
+</script>
+</body>
+</html>
